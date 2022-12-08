@@ -1,9 +1,10 @@
 import React, { useReducer , useState} from "react";
 import Todo from "./Todo";
 
-const ACTIONS = {
+export const ACTIONS = {
   ADD_TODO : "add-todo",
-  TOGGLE_TODO :"toggle-todo"
+  TOGGLE_TODO :"toggle-todo",
+  DELETE_TODO : "delete-todo"
 }
 
 function reducer (todos,action) {
@@ -11,10 +12,16 @@ function reducer (todos,action) {
     case ACTIONS.ADD_TODO:
       return [...todos,newTodo (action.payload.name)]
     case ACTIONS.TOGGLE_TODO :
+      return todos.map(todo =>{
       if (todo.id ===action.payload.id){
         return {...todo, complete : !todo.complete}
       }
       return todo
+    })
+    case ACTIONS.DELETE_TODO :
+      return todos.filter (todo => todo.id !== action.payload.id)
+    default:
+      return todos
   }
 }
 function newTodo (name) {
