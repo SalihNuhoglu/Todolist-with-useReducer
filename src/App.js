@@ -10,7 +10,11 @@ function reducer (todos,action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
       return [...todos,newTodo (action.payload.name)]
-    
+    case ACTIONS.TOGGLE_TODO :
+      if (todo.id ===action.payload.id){
+        return {...todo, complete : !todo.complete}
+      }
+      return todo
   }
 }
 function newTodo (name) {
